@@ -1,0 +1,17 @@
+apiVersion: secrets-store.csi.x-k8s.io/v1
+kind: SecretProviderClass
+metadata:
+  name: secret-provider-class-name                      # Name of the class; must be unique per Kubernetes namespace
+  namespace: azure-iot-operations                    # Kubernetes namespace to make the secrets accessible in
+spec:
+  provider: azure
+  parameters:
+    clientID: "e773a662-7f4e-46ff-a81a-b8abc7551595"               # Managed Identity Client ID for accessing the Azure Key Vault with.
+    keyvaultName: aio-test-kv                       # The name of the Azure Key Vault to synchronize secrets from.
+    objects: |
+      array:
+        - |
+          objectName: my-test-secret            # The name of the secret to sychronize.
+          objectType: secret
+          objectVersionHistory: 2                       # [optional] The number of versions to synchronize, starting from latest.      
+    tenantID: "16b3c013-d300-468d-ac64-7eda0820b6d3"                       # The tenant ID of the Key Vault 

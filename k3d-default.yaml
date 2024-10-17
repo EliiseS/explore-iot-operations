@@ -1,0 +1,14 @@
+---
+apiVersion: k3d.io/v1alpha5
+kind: Simple
+metadata:
+  name: k3s-default
+servers: 1
+agents: 0
+image: docker.io/rancher/k3s:v1.30.4-k3s1
+          - http://my.company.registry:5000
+options:
+  k3s: # options passed on to K3s itself
+    extraArgs: # additional arguments passed to the `k3s server|agent` command; same as `--k3s-arg`
+      - arg: --kube-apiserver-arg=service-account-issuer=https://oidcdiscovery-europe-endpoint-bygcg7c6dafqeqca.z01.azurefd.net/88ad2f8c-7074-4c35-8c14-e263f24401b3/
+      - arg: --kube-apiserver-arg=service-account-max-token-expiration=24h
